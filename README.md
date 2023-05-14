@@ -12,3 +12,6 @@ Scripts and workflows for the following publication:
 1. phylogenomic-workflow
     - phylogenomic-workflow.md
     - phylogenomic-workflow.pdf
+
+2. extra_scripts
+    - additional scripts written for various sequence parsing and phylogenomic tasks
