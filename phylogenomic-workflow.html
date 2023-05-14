@@ -1,0 +1,2965 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>phylogenomic-workflow</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Phylogenomic analysis of Thalassiosirales genomes and transcriptomes</h1>
+
+<h6 id="toc_1">Home directory on Pinnacle:</h6>
+
+<p><code>/storage/wader/Genome-Skimming-annotation/</code></p>
+
+<h2 id="toc_2"></h2>
+
+<h6 id="toc_3">Software used:</h6>
+
+<ul>
+<li>OrthoFinder (v.2.4.0)</li>
+<li>Mafft (v.7.304b)</li>
+<li>TrimAl (v.1.4rev22)</li>
+<li>IQ-TREE (v.1.6.12)</li>
+<li>IQ-TREE2 (v.2.0.3)</li>
+<li>ASTRAL (v.5.7.3)</li>
+<li>FastTree (v.2.1.10)</li>
+<li>TreeShrink (v.1.3.7)</li>
+<li>Pal2Nal (v.14)</li>
+<li>PhyKit (v.1.2.1)</li>
+<li>PAML (v.4.9e)</li>
+<li>QuartetSampling (v.1.3.1)</li>
+<li>Yang &amp; Smith pipeline scripts (<code>https://bitbucket.org/yanglab/phylogenomic_dataset_construction/src/master/</code>)</li>
+<li>GeneWise (<code>https://www.ebi.ac.uk/Tools/psa/genewise/</code>)</li>
+<li>AMAS (<code>https://github.com/marekborowiec/AMAS</code>) </li>
+<li>Degen (<code>http://www.phylotools.com/ptdegendownload.htm</code>)</li>
+<li>MSA_trimmer (<code>https://github.com/LKremer/MSA_trimmer</code>)</li>
+<li>extract-codon-alignment (<code>https://github.com/linzhi2013/extract_codon_alignment</code>)</li>
+</ul>
+
+<h2 id="toc_4"></h2>
+
+<h3 id="toc_5">1. Run OrthoFinder to get orthogroups and create sequence files</h3>
+
+<div><pre><code class="language-none">orthofinder -t 24 -a 12 -og -f orthofinder-proteomes</code></pre></div>
+
+<h5 id="toc_6">Summarize the orthogroup occupancy</h5>
+
+<h6 id="toc_7">Working directory:</h6>
+
+<p><code>orthofinder-proteomes/OrthoFinder/Results_Mar29/Orthogroups/</code></p>
+
+<div><pre><code class="language-none">python3 summarize_orthogroup_membership.py Orthogroups.GeneCount.tsv outgroup-species.txt Coscinodiscus_sp_AJA212-04 &gt; orthogroup-summary.csv</code></pre></div>
+
+<h5 id="toc_8">Select and link to orthogroups with &gt;= 20% ingroup occupancy</h5>
+
+<h6 id="toc_9">Working directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_fasta_occupancy_40/</code></p>
+
+<div><pre><code class="language-none">python3 link_to_orthogroups_by_taxon_occupancy.py {path_to}/orthogroup-summary.csv {path_to}/Orthogroup_Sequences/</code></pre></div>
+
+<h4 id="toc_10">Selected 11687 orthogroups with &gt;= 20% ingroup occupancy</h4>
+
+<h2 id="toc_11"></h2>
+
+<h3 id="toc_12">2. Multiple sequence alignment, Round 1</h3>
+
+<h6 id="toc_13">Working directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_fasta_occupancy_40/</code></p>
+
+<h5 id="toc_14">Orthogroups with &lt;= 200 sequences will be aligned using Mafft</h5>
+
+<div><pre><code class="language-none">mafft --anysymbol --genafpair --maxiterate 1000 --thread 4 INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_15">For orthogroups with &gt; 200 sequences, use --auto option in Mafft</h6>
+
+<h6 id="toc_16">Create a list of files and split into chunks of 400</h6>
+
+<div><pre><code class="language-none">for f in `cat orthogroups-below200.txt` ; do python3 write_mafft_PBS_scripts.py $f -w 4 -q tiny16core &gt; ${f%.fa}.mafft.pbs ; done
+
+ls *.mafft.pbs &gt; orthogroups-below200-list.txt
+
+split -l 400 -d orthogroups-below200-list.txt orthogroups-below200-list</code></pre></div>
+
+<h6 id="toc_17">Submit PBS jobs for each chunk</h6>
+
+<div><pre><code class="language-none">for f in `cat orthogroups-below200-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_18">Progress of above200 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_19">Progress of below200 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="toc_20">Trim the alignments using TrimAl</h5>
+
+<div><pre><code class="language-none">trimal -in INPUT -out OUTPUT -gt 0.1</code></pre></div>
+
+<h6 id="toc_21">Output directory:</h6>
+
+<p><code>OrthoFinder/orthogroups_alignments_occupancy_40/</code></p>
+
+<h4 id="toc_22">11687 homolog alignments</h4>
+
+<h2 id="toc_23"></h2>
+
+<h3 id="toc_24">3. Build homolog trees, Round 1</h3>
+
+<h6 id="toc_25">Working directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_alignments_occupancy_40/</code></p>
+
+<h5 id="toc_26">For orthogroups &lt; 1000 sequences, estimate trees using IQ-Tree</h5>
+
+<div><pre><code class="language-none">iqtree -s INFILE -pre PREFIX -st AA -nt AUTO -m TEST --runs 1 &gt; INFILE.err</code></pre></div>
+
+<h5 id="toc_27">For orthogroups &gt;= 1000 sequences, estimate trees using FastTree</h5>
+
+<div><pre><code class="language-none">FastTree -wag -gamma INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_28">Output directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_trees_occupancy_40/</code></p>
+
+<h6 id="toc_29">Create a list of files and split into chunks of 100</h6>
+
+<div><pre><code class="language-none">for f in `cat alignment-below1000.txt` ; do python3 write_IQ-TREE_AA_tree_PBS_scripts.py $f tiny12core &gt; ${f%.aln.trim}.iqtree.pbs ; done
+
+ls *.fasttree.pbs &gt; alignment-below1000-submit.txt
+
+split -l 400 -d alignment-below1000-submit.txt alignment-below1000-submit</code></pre></div>
+
+<h6 id="toc_30">Submit PBS jobs for each chunk</h6>
+
+<div><pre><code class="language-none">for f in `cat alignment-below1000-submit00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_31">Progress of above1000 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_32">Progress of below1000 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>28</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>29</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_33">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG*.err &gt; continue-these.txt</code></pre></div>
+
+<h4 id="toc_34">Final: 11687 homolog trees</h4>
+
+<h2 id="toc_35"></h2>
+
+<h3 id="toc_36">4. Trim homolog trees, Round 1</h3>
+
+<h6 id="toc_37">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_trees_occupancy_40/</code></p>
+
+<h5 id="toc_38">Trim spurious tips using TreeShrink (quantile = 0.01)</h5>
+
+<div><pre><code class="language-none">conda activate treeshrink
+module load R
+python2 tree_shrink_wrapper.py inDIR .tree 0.01 outDIR</code></pre></div>
+
+<h6 id="toc_39">Output are <code>.tt</code> files</h6>
+
+<h6 id="toc_40">Summarize the TreeShrink output to check for overtrimming of outgroup sequences</h6>
+
+<div><pre><code class="language-none">python3 summarize_treeshrink.py .tree.txt .</code></pre></div>
+
+<h5 id="toc_41">Outgroup tips removed by quantile</h5>
+
+<table>
+<thead>
+<tr>
+<th>taxon</th>
+<th>start</th>
+<th>0.05</th>
+<th>0.01</th>
+<th>0.005</th>
+<th>0.001</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Coscinodiscus</td>
+<td>15051</td>
+<td>888</td>
+<td>241</td>
+<td>140</td>
+<td>51</td>
+</tr>
+<tr>
+<td>Bellerochea</td>
+<td>13227</td>
+<td>205</td>
+<td>42</td>
+<td>18</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Lithodesmium</td>
+<td>13940</td>
+<td>253</td>
+<td>63</td>
+<td>40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Ditylum</td>
+<td>12945</td>
+<td>236</td>
+<td>53</td>
+<td>32</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Eunotogramma</td>
+<td>18321</td>
+<td>474</td>
+<td>139</td>
+<td>95</td>
+<td>46</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="toc_42">Mask monophyletic and paraphyletic tips</h5>
+
+<div><pre><code class="language-none">python2 mask_tips_by_taxonID_transcripts.py inDIR alnDIR y</code></pre></div>
+
+<h6 id="toc_43">Output are <code>.mm</code> files.</h6>
+
+<h6 id="toc_44">Select 10 random tree files to determine appropriate internal branch length cutoff</h6>
+
+<div><pre><code class="language-none">ls *.mm | shuf -n 10</code></pre></div>
+
+<h5 id="toc_45">Cut deep paralogs</h5>
+
+<div><pre><code class="language-none">python2 cut_long_internal_branches.py inDIR .mm 0.5 20 outDIR</code></pre></div>
+
+<h6 id="toc_46">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_subtrees_occupancy_40/</code></p>
+
+<h6 id="toc_47">Output are <code>.subtree</code> files</h6>
+
+<h5 id="toc_48">Output is 11694 subtrees</h5>
+
+<h2 id="toc_49"></h2>
+
+<h3 id="toc_50">5. Multiple sequence alignment, Round 2</h3>
+
+<h5 id="toc_51">Write new fasta files for each subtree</h5>
+
+<h6 id="toc_52">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_subtrees_occupancy_40/</code></p>
+
+<h6 id="toc_53">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_fasta_round2/</code></p>
+
+<div><pre><code class="language-none">python2 write_fasta_files_from_trees.py all-proteomes.faa inDIR .subtree outDIR</code></pre></div>
+
+<h5 id="toc_54">Orthogroups with &lt;= 200 sequences will be aligned using Mafft</h5>
+
+<div><pre><code class="language-none">mafft --anysymbol --genafpair --maxiterate 1000 --thread 4 INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_55">For orthogroups with &gt; 200 sequences, use --auto option in Mafft</h6>
+
+<h6 id="toc_56">Create a list of files and split into chunks of 100</h6>
+
+<div><pre><code class="language-none">for f in `cat homolog-below200.txt` ; do python3 write_mafft_PBS_scripts.py $f -w 4 -q tiny16core &gt; ${f%.fa}.mafft.pbs ; done
+
+ls *.mafft.pbs &gt; homolog-below200.txt
+
+split -l 400 -d homolog-below200.txt homolog-below200-</code></pre></div>
+
+<h6 id="toc_57">Submit PBS jobs for each chunk</h6>
+
+<div><pre><code class="language-none">for f in `cat homolog-below200-00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_58">Progress of above200 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_59">Progress of below200 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>28</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="toc_60">Output is 11694 alignments</h5>
+
+<h2 id="toc_61"></h2>
+
+<h3 id="toc_62">6. Build homolog trees, Round 2</h3>
+
+<h6 id="toc_63">Working directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_alignments_round2/</code></p>
+
+<h5 id="toc_64">For orthogroups &lt; 1000 sequences, estimate trees using IQ-Tree</h5>
+
+<div><pre><code class="language-none">iqtree -s INFILE -pre PREFIX -st AA -nt AUTO -m TEST --runs 1 &gt; INFILE.err</code></pre></div>
+
+<h5 id="toc_65">For orthogroups &gt;= 1000 sequences, estimate trees using FastTree</h5>
+
+<div><pre><code class="language-none">FastTree -wag -gamma INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_66">Output directory:</h6>
+
+<p><code>OrthoFinder/orthogroup_trees_round2/</code></p>
+
+<h6 id="toc_67">Create a list of files and split into chunks of 100</h6>
+
+<div><pre><code class="language-none">for f in `cat alignment-below1000.txt` ; do python3 write_IQ-TREE_AA_tree_PBS_scripts.py $f tiny12core &gt; ${f%.aln.trim}.iqtree.pbs ; done
+
+ls *.fasttree.pbs &gt; alignment-below1000-submit.txt
+
+split -l 400 -d alignment-below1000-submit.txt alignment-below1000-submit</code></pre></div>
+
+<h6 id="toc_68">Submit PBS jobs for each chunk</h6>
+
+<div><pre><code class="language-none">for f in `cat alignment-below1000-submit00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_69">Progress of above1000 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_70">Progress of below1000 chunks:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>28</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>29</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_71">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG*.log &gt; continue-these.txt</code></pre></div>
+
+<h6 id="toc_72">IQTree did not finish for 3 orthogroups. Run these using FastTree: OG0000042_1rr (JTT), OG0000080_1rr (WAG), OG0000186_1rr (WAG)</h6>
+
+<h4 id="toc_73">Final: 11694 homolog trees</h4>
+
+<h2 id="toc_74"></h2>
+
+<h3 id="toc_75">7. Trim homolog trees, Round 2</h3>
+
+<h6 id="toc_76">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_trees_round2/</code></p>
+
+<h5 id="toc_77">Trim spurious tips using TreeShrink (quantile = 0.01)</h5>
+
+<div><pre><code class="language-none">conda activate treeshrink
+module load R
+python2 tree_shrink_wrapper.py inDIR .tree 0.01 outDIR</code></pre></div>
+
+<h6 id="toc_78">Output are <code>.tt</code> files</h6>
+
+<h6 id="toc_79">Summarize the TreeShrink output to check for overtrimming of outgroup sequences</h6>
+
+<div><pre><code class="language-none">python3 summarize_treeshrink.py .tree.txt .</code></pre></div>
+
+<h5 id="toc_80">Outgroup tips removed by quantile</h5>
+
+<table>
+<thead>
+<tr>
+<th>taxon</th>
+<th>start</th>
+<th>0.01</th>
+<th>0.005</th>
+<th>0.001</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Coscinodiscus</td>
+<td>7048</td>
+<td>325</td>
+<td>194</td>
+<td>62</td>
+</tr>
+<tr>
+<td>Bellerochea</td>
+<td>5340</td>
+<td>34</td>
+<td>25</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Lithodesmium</td>
+<td>5429</td>
+<td>35</td>
+<td>21</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Ditylum</td>
+<td>5400</td>
+<td>43</td>
+<td>23</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Eunotogramma</td>
+<td>8386</td>
+<td>162</td>
+<td>93</td>
+<td>33</td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="toc_81">Mask monophyletic and paraphyletic tips</h5>
+
+<div><pre><code class="language-none">python2 mask_tips_by_taxonID_transcripts.py inDIR alnDIR y</code></pre></div>
+
+<h6 id="toc_82">Output are <code>.mm</code> files.</h6>
+
+<h6 id="toc_83">Select 10 random tree files to determine appropriate internal branch length cutoff</h6>
+
+<div><pre><code class="language-none">ls *.mm | shuf -n 10</code></pre></div>
+
+<h5 id="toc_84">Cut deep paralogs</h5>
+
+<div><pre><code class="language-none">python2 cut_long_internal_branches.py inDIR .mm 0.5 20 outDIR</code></pre></div>
+
+<h6 id="toc_85">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_subtrees_round2/</code></p>
+
+<h6 id="toc_86">Output are <code>.subtree</code> files</h6>
+
+<h5 id="toc_87">Output is 11635 subtrees</h5>
+
+<h5 id="toc_88">Summarize homolog occupancy</h5>
+
+<div><pre><code class="language-none">python2 ortholog_occupancy_stats.py .</code></pre></div>
+
+<h2 id="toc_89"></h2>
+
+<h3 id="toc_90">8. Prune orthologs</h3>
+
+<h6 id="toc_91">Working direcctory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_subtrees_round2/</code></p>
+
+<h5 id="toc_92">Rooted Ingroup (RT) method: Coscinodiscus is outgroup.</h5>
+
+<div><pre><code class="language-none">python2 prune_paralogs_RT.py inDIR .subtree outDIR 22 taxonIDs.txt</code></pre></div>
+
+<h6 id="toc_93">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_orthologs/</code></p>
+
+<h6 id="toc_94">Output are <code>.tre</code> files</h6>
+
+<h5 id="toc_95">Output is 6262 orthologs</h5>
+
+<h5 id="toc_96">Summarize ortholog occupancy</h5>
+
+<div><pre><code class="language-none">python2 ortholog_occupancy_stats.py .</code></pre></div>
+
+<h5 id="toc_97">Write new fasta files for each ortholog</h5>
+
+<div><pre><code class="language-none">python2 write_ortholog_fasta_files.py all-proteomes.faa orthoDIR outDIR 22
+python2 write_ortholog_fasta_files.py allCDS.fna orthoDIR outDIR 22</code></pre></div>
+
+<h6 id="toc_98">Output directories:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_AA_fasta/</code>
+<code>/OrthoFinder/orthogroup_RT_CDS_fasta/</code></p>
+
+<h6 id="toc_99">Stupid NA51C2 has duplicates in fasta headers</h6>
+
+<p><code>awk &#39;match($0,/WR35_[0-9]+-R[0-9]/,a){print $0&quot;_&quot;a[0]}&#39; test.cds &gt; test.cds2</code>
+<code>sed -i.bak &#39;s|\(_WR35_[0-9]+-R[0-9]\)|&amp;\1|&#39; test.cds</code>
+<code>cut -d &#39;_&#39; --fields=1,2,3,4,5 test.faa &gt; test.faa2</code></p>
+
+<h3 id="toc_100">9. Final multiple sequence alignment: orthologs</h3>
+
+<h6 id="toc_101">Remove <code>Thalassiosira_weissflogii_AJA159-02</code> and from fasta files</h6>
+
+<div><pre><code class="language-none">python3 filter_fasta_from_list.py INFILE exclude-list &gt; OUTFILE</code></pre></div>
+
+<h5 id="toc_102">AA sequences</h5>
+
+<h6 id="toc_103">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_AA_fasta/</code></p>
+
+<div><pre><code class="language-none">mafft --anysymbol --localpair --maxiterate 1000 INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_104">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_AA_alignments/</code></p>
+
+<div><pre><code class="language-none">for f in *.cut.faa ; do python3 write_mafft_PBS_scripts.py $f -w 4 -q tiny12core &gt; ${f%.cut.faa}.mafft.pbs ; done
+
+ls *.mafft.pbs &gt; fasta-list.txt
+
+split -l 400 -d fasta-list.txt fasta-list
+
+for f in `cat fasta-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_105">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_106">Trim the AA alignments</h6>
+
+<div><pre><code class="language-none">for i in *.aln ; do python3 alignment_trimmer.py -p $i --trim_gappy 0.9 ; done
+
+for i in *_trimmed.aln ; do mv $i ${i%_trimmed.aln}.aln.trim ; done</code></pre></div>
+
+<h6 id="toc_107">Total trimmed AA alignments: 6262</h6>
+
+<h5 id="toc_108">CDS sequences</h5>
+
+<h6 id="toc_109">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_fasta/</code></p>
+
+<div><pre><code class="language-none">pal2nal pep.aln CDS.fasta -output fasta &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_110">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_alignments/</code></p>
+
+<div><pre><code class="language-none">for f in *.cut.cds ; do python3 write_pal2nal_PBS_scripts.py $f -w 4 -q tiny12core &gt; ${f%.cut.cds}.pal2nal.pbs ; done
+
+ls *.pal2nal.pbs &gt; fasta-list.txt
+
+split -l 400 -d fasta-list.txt fasta-list
+
+for f in `cat fasta-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_111">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_112">Inconsistency errors from <code>CCMP1335</code> in the following orthologs. Check with GeneWise, fix erros, and re-run Pal2Nal.</h6>
+
+<table>
+<thead>
+<tr>
+<th>ortholog</th>
+<th>fixed</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>OG0004774<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0002536<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001037<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0003914<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0000272<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0004376<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0000616<em>2rr</em>1.inclade1.ortho2</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001926<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0000229<em>1rr</em>1.inclade1.ortho2</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0003300<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0003628<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0006547<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0010405<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001250<em>2rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0000354<em>4rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001530<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0004850<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0004655<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0009591<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0004936<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0007207<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0009393<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0002637<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001471<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0004069<em>1rr</em>1.inclade1.ortho2</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001170<em>1rr</em>1.inclade1.ortho2</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0001200<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0003872<em>1rr</em>1.inclade1.ortho1</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OG0000086<em>1rr</em>1.inclade1.ortho2</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_113">Trim the CDS alignments</h6>
+
+<div><pre><code class="language-none">for i in *.pal2nal ; do python3 alignment_trimmer.py -c $i --trim_gappy 0.9 ; done
+
+for i in *_trimmed.pal2nal ; do mv $i ${i%_trimmed.pal2nal}.pal2nal.trim ; done</code></pre></div>
+
+<h6 id="toc_114">Total trimmed CDS alignments: 6262</h6>
+
+<h2 id="toc_115"></h2>
+
+<h3 id="toc_116">10. Final tree estimation: orthologs</h3>
+
+<h5 id="toc_117">AA alignments</h5>
+
+<h6 id="toc_118">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_AA_alignments/</code></p>
+
+<div><pre><code class="language-none">iqtree -s INPUT -pre PREFIX -st AA -nt AUTO -m TEST --runs 5 -bb 1000 -wbt &gt; PREFIX.err</code></pre></div>
+
+<div><pre><code class="language-none">for i in *.aln.trim ; do python3 write_IQ-TREE_AA_tree_PBS_scripts.py $i tiny12core &gt; ${i%.aln.trim}.iqtree.pbs ; done
+
+ls *.iqtree.pbs &gt; alignment-list.txt
+
+split -l 400 -d alignment-list.txt alignment-list
+
+for f in `cat alignment-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_119">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_120">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG00*.log</code></pre></div>
+
+<h5 id="toc_121">CDS alignments - partition by codon position</h5>
+
+<h6 id="toc_122">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_alignments/</code></p>
+
+<div><pre><code class="language-none">iqtree -s INPUT -pre PREFIX -spp PARTITION -st DNA -nt AUTO -m TESTMERGE --runs 5 -bb 1000 -wbt &gt; PREFIX.err</code></pre></div>
+
+<div><pre><code class="language-none">for i in *.pal2nal.trim ; do python3 write_IQ-TREE_CDS_tree_PBS_scripts.py $i -w 6 -q q06h32c ; done
+
+ls *.iqtree.pbs &gt; alignment-list.txt
+
+split -l 400 -d alignment-list.txt alignment-list
+
+for f in `cat alignment-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_123">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_124">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG00*.log</code></pre></div>
+
+<h5 id="toc_125">CDS alignments - first and second codon positions</h5>
+
+<h6 id="toc_126">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_alignments/</code></p>
+
+<div><pre><code class="language-none">for i in *.pal2nal.trim ; do extract_codon_alignment --alignedCDS $i --codonPoses 12 --outAln outDir/$${%i.pal2nal.trim}.pos12.pal2nal.trim ; done</code></pre></div>
+
+<h6 id="toc_127">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_pos12_alignments/</code></p>
+
+<div><pre><code class="language-none">iqtree -s INPUT -pre PREFIX -spp PARTITION -st DNA -nt AUTO -m TESTMERGE --runs 5 -bb 1000 -wbt &gt; PREFIX.err</code></pre></div>
+
+<div><pre><code class="language-none">for i in *.pos12.pal2nal.trim ; do python3 write_IQ-TREE_CDS_tree_PBS_scripts.py $i -w 6 -q q06h32c ; done
+
+ls *.iqtree.pbs &gt; alignment-list.txt
+
+split -l 400 -d alignment-list.txt alignment-list
+
+for f in `cat alignment-list00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_128">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_129">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG00*.log</code></pre></div>
+
+<h5 id="toc_130">Codon degenerated CDS alignments</h5>
+
+<h6 id="toc_131">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_RT_CDS_alignments_DEGEN</code></p>
+
+<h6 id="toc_132">Create degenerated alignments using DEGEN</h6>
+
+<div><pre><code class="language-none">for i in ../orthogroup_RT_CDS_alignments/*.pal2nal.trim ; do ln -s $i ; done
+
+for i in *.pal2nal.trim ; do perl Degen_v1_4.pl $i ; done</code></pre></div>
+
+<div><pre><code class="language-none">iqtree -s INPUT -pre PREFIX -spp PARTITION -st DNA -nt AUTO -m TESTMERGE --runs 5 -bb 1000 -wbt &gt; PREFIX.err</code></pre></div>
+
+<div><pre><code class="language-none">for i in *.fasta ; do python3 write_IQ-TREE_CDS_tree_slurm_scripts.py $i -c 6 -nt 6 -q comp06 ; done
+
+ls *.slurm &gt; alignment-list.txt
+
+split -l 400 -d alignment-list.txt alignment-list
+
+for f in `cat alignment-list00` ; do sbatch ${f} ; done</code></pre></div>
+
+<h6 id="toc_133">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>00</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>comp06</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_134"></h2>
+
+<h3 id="toc_135">11. Final multiple sequence alignment: homologs</h3>
+
+<h6 id="toc_136">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_subtrees_round2/</code></p>
+
+<h6 id="toc_137">Write new fasta files for each homolog</h6>
+
+<div><pre><code class="language-none">python2 write_fasta_files_from_trees.py all-proteomes.faa inDIR .subtree outDIR</code></pre></div>
+
+<h6 id="toc_138">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_Homologs/</code></p>
+
+<h6 id="toc_139">Remove <code>Thalassiosira_weissflogii_AJA159-02</code> and from fasta files</h6>
+
+<div><pre><code class="language-none">for i in *.fa ; do grep &quot;Thalassiosira_weissflogii_AJA159-02&quot; $i &gt; ${i%.fa}.remove ; sed -i &#39;s/&gt;//g&#39; ${i%.fa}.remove ; python3 filter_fasta_from_list.py $i ${i%.fa}.remove &gt; ${i%.fa}.cut.fa ; done</code></pre></div>
+
+<h5 id="toc_140">AA sequences</h5>
+
+<h6 id="toc_141">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_Homologs/</code></p>
+
+<h6 id="toc_142">For homologs that contain &lt;= 200 sequences:</h6>
+
+<div><pre><code class="language-none">mafft --anysymbol --genafpair --maxiterate 1000 INPUT &gt; OUTPUT</code></pre></div>
+
+<h6 id="toc_143">For homologs that contain &gt; 200 sequences, use mafft <code>--auto</code> option</h6>
+
+<h6 id="toc_144">Output directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_Homologs_alignments/</code></p>
+
+<div><pre><code class="language-none">for f in `cat fasta-below200.txt` ; do python3 write_mafft_PBS_scripts.py $f -w 4 -q tiny12core &gt; ${f%.cut.fa}.mafft.pbs ; done
+
+sed -i &#39;s/cut.fa/mafft.pbs/g&#39; fasta-below200.txt
+
+split -l 400 -d fasta-below200.txt fasta-below200-
+
+for f in `cat fasta-below200-00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_145">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>above200</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>28</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_146">Trim the AA alignments</h6>
+
+<div><pre><code class="language-none">for i in *.aln ; do python3 alignment_trimmer.py -p $i --trim_gappy 0.9 ; done
+
+for i in *_trimmed.aln ; do mv $i ${i%_trimmed.aln}.aln.trim ; done</code></pre></div>
+
+<h6 id="toc_147">Total trimmed AA alignments: 11635</h6>
+
+<h2 id="toc_148"></h2>
+
+<h3 id="toc_149">12. Final tree estimation: homologs</h3>
+
+<h6 id="toc_150">Working directory:</h6>
+
+<p><code>/OrthoFinder/orthogroup_Homologs_alignments/</code></p>
+
+<h6 id="toc_151">For homologs with &lt;= 500 sequences, use IQ-Tree:</h6>
+
+<div><pre><code class="language-none">iqtree -s INPUT -pre PREFIX -st AA -nt AUTO -m TEST --runs 5 -bb 1000 -wbt &gt; PREFIX.err</code></pre></div>
+
+<div><pre><code class="language-none">for f in `cat alignment-below200.txt` ; do python3 write_IQ-TREE_AA_tree_PBS_scripts.py $f tiny12core &gt; ${f%.aln.trim}.iqtree.pbs ; done
+
+sed -i &#39;s/aln.trim/iqtree.pbs/g&#39; alignment-below200.txt
+
+split -l 400 -d alignment-below200.txt alignment-below200-
+
+for f in `cat alignment-below200-00` ; do qsub ${f} ; done</code></pre></div>
+
+<h6 id="toc_152">Progress of chunks</h6>
+
+<table>
+<thead>
+<tr>
+<th>Chunk</th>
+<th>Node</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>below500</td>
+<td>med12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>00</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>01</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>02</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>03</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>04</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>05</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>06</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>07</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>08</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>09</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>10</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>11</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>12</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>13</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>14</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>15</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>16</td>
+<td>q06h32c</td>
+<td>done</td>
+</tr>
+<tr>
+<td>17</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>18</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>19</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>20</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>21</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>22</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>23</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>25</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>26</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>27</td>
+<td>tiny12core</td>
+<td>done</td>
+</tr>
+<tr>
+<td>28</td>
+<td>tiny16core</td>
+<td>done</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_153">Check for incomplete tree searches and continue them:</h6>
+
+<div><pre><code class="language-none">grep -L &quot;Analysis results written to&quot; OG00*.log</code></pre></div>
+
+<h6 id="toc_154">The following homologs had IQ-Tree errors: <code>OG0000209_1rr_1</code></h6>
+
+<h6 id="toc_155">For homologs with &gt;500 sequences, use FastTree:</h6>
+
+<div><pre><code class="language-none">FastTree -spr 4 -mlacc 2 -slownni -wag -gamma INPUT &gt; OUTPUT</code></pre></div>
+
+<div><pre><code class="language-none">for f in `cat alignment-above200.txt` ; do python3 write_fasttree_PBS_scripts.py $f -w 4 -q tiny12core &gt; ${f%.aln.trim}.fasttree.pbs ; done
+
+sed -i &#39;s/aln.trim/fasttree.pbs/g&#39; alignment-above200.txt
+
+for f in `cat alignment-above200.txt` ; do qsub ${f} ; done</code></pre></div>
+
+<h2 id="toc_156"></h2>
+
+<h3 id="toc_157">13. Species tree estimation - example commands</h3>
+
+<h4 id="toc_158">IQ-TREE2 with SRH test to remove bad partitions</h4>
+
+<div><pre><code class="language-none">iqtree -s orthoRT-AA.concat.fasta -pre orthoRT-AA.symtest -st AA -bb 10000 -alrt 10000 -m TEST -msub nuclear -spp orthoRT-AA.concat.model --symtest-remove-bad -nt AUTO &gt;&gt; orthoRT-AA.symtest.err</code></pre></div>
+
+<h6 id="toc_159">Gather kept partition names from output and use the same set of gene trees as input to ASTRAL</h6>
+
+<h6 id="toc_160">&quot;orthoRT-AA.symtest.bad.nex&quot; will list the kept partitions</h6>
+
+<h4 id="toc_161">ASTRAL with gene trees that passed SRH test</h4>
+
+<div><pre><code class="language-none">java -jar astral.5.7.3.jar -i AA.symtest.trees -o AA.symtest.astral.tree</code></pre></div>
+
+<h4 id="toc_162">IQ-TREE2 using the PMSF model</h4>
+
+<h6 id="toc_163">First, create a guide tree using the LG+F+G model</h6>
+
+<div><pre><code class="language-none">iqtree -s orthoRT-AA.top-PI.top-Taxa.concat.fasta -pre orthoRT-AA.pmsf-guide -st AA -m LG+F+G -nt AUTO &gt;&gt; orthoRT-AA.pmsf-guide.err</code></pre></div>
+
+<h6 id="toc_164">Second, use the guide tree to run the PMSF model using LG+C20+F+G</h6>
+
+<div><pre><code class="language-none">iqtree -s orthoRT-AA.top-PI.top-Taxa.concat.fasta -pre orthoRT-AA.pmsf -st AA -bb 10000 -m LG+C20+F+G -nt 24 -ft orthoRT-AA.pmsf-guide.treefile &gt;&gt; orthoRT-AA.pmsf.err</code></pre></div>
+
+<h2 id="toc_165"></h2>
+
+<h3 id="toc_166">14. Concordance factor analyses - example commands</h3>
+
+<h4 id="toc_167">Gene and site concordance factors (gCF and sCF)</h4>
+
+<div><pre><code class="language-none">iqtree -t orthoRT-AA.pmsf.treefile --gcf orthoRT-AA.trees --scf 1000 -s orthoRT-AA.concat.fasta -p orthoRT-AA.concat.model --prefix orthoRT-AA.pmsf.treefile</code></pre></div>
+
+<h4 id="toc_168">Quartet concordance factors (QC)</h4>
+
+<h6 id="toc_169">AA datasets:</h6>
+
+<div><pre><code class="language-none">python3 quartet_sampling.py --tree orthoRT-AA.pmsf.rooted.treefile --align orthoRT-AA.concat.phy --reps 500 --threads 8 --lnlike 2 --genetrees orthoRT-AA.concat.model --result-prefix RESULT --data-type amino --engine raxml --engine-exec raxmlHPC-PTHREADS-SSE3 --engine-model PROTGAMMALGF</code></pre></div>
+
+<h6 id="toc_170">CDS datasets:</h6>
+
+<div><pre><code class="language-none">python3 quartet_sampling.py --tree orthoRT-CDS-pos12.symtest.rooted.treefile --align orthoRT-CDS-pos12.concat.phy --reps 500 --threads 8 --lnlike 2 --result-prefix RESULT --data-type nuc --genetrees orthoRT-CDS-pos12.concat.model --engine raxml --engine-exec raxmlHPC-PTHREADS-SSE3 --engine-model GTRGAMMA</code></pre></div>
+
+<h2 id="toc_171"></h2>
+
+<h3 id="toc_172">15. Get dataset summary statistics</h3>
+
+<h5 id="toc_173">Calculate basic summary statistics using AMAS</h5>
+
+<div><pre><code class="language-none">AMAS.py summary -i *.aln.trim -f fasta -d aa -o orthoRT-AA.summary.txt -c 12</code></pre></div>
+
+<h5 id="toc_174">Calculate GC content for each codon position across genes and taxa using AMAS</h5>
+
+<div><pre><code class="language-none">for i in *.pal2nal.trim ; do extract_codon_alignment --alignedCDS $i --codonPoses 1 --outAln outDir/$${%i.pal2nal.trim}.pos1.pal2nal.trim ; done
+
+for i in *.pos1.pal2nal.trim ; do AMAS.py summary -s -c 12 -i $i -f fasta -d dna ; done
+
+for i in `cat taxon-names.txt` ; do grep -h $i *-summary.txt &gt; $i.summary.txt ; done
+
+for i in *.summary.txt ; do awk &#39;{print $2,$7}&#39; $i &gt; ${i%.summary.txt}.pos1.gc-content.txt ; done
+
+cat *.gc-content.txt &gt; all-taxa.pos1.gc-content.txt</code></pre></div>
+
+<h5 id="toc_175">Calculate Relative Composition Variability (RCV) using PhyKit</h5>
+
+<div><pre><code class="language-none">conda activate phykit
+
+for i in *.treefile ; do sat=$(phykit saturation -a ${i%.treefile}.pal2nal.trim -t $i) ; rcv=$(phykit rcv ${i%.treefile}.pal2nal.trim) ; echo -e &quot;${i%.treefile}\t$sat\t$rcv&quot; &gt;&gt; saturation-rcv-output.txt ; done</code></pre></div>
+
+<h5 id="toc_176">Calculate Degree Violation of Molecular Clock (DVMC) and Robinson-Foulds distances from PMSF tree using PhyKit</h5>
+
+<div><pre><code class="language-none">conda activate phykit
+
+for i in *.treefile ; do dvmc=$(phykit dvmc -t $i -r ../root-taxa.txt) ; tl=$(phykit tree_len $i) ; rf=$(phykit rf orthoRT-AA.pmsf.treefile $i) ; echo -e &quot;${i%.treefile}\t$dvmc\t$tl\t$rf&quot; &gt;&gt; orthoRT-AA.clock-genes.output.txt ; done</code></pre></div>
+
+<h3 id="toc_177">17. Divergence time estimation using MCMCtree</h3>
+
+<h6 id="toc_178">Using the AA dataset. Selected 74 most clock-like (lowest DVMC) and similar (RF similarity to PMSF species tree) genes.</h6>
+
+<h6 id="toc_179">Use PartitionFinder in IQ-Tree to merge partitions</h6>
+
+<div><pre><code class="language-none">iqtree -s selected-genes.fasta -p selected-genes.model -st AA -m TESTMERGEONLY -T AUTO -mset JTT,JTTDCMut,LG,WAG -rcluster 10</code></pre></div>
+
+<h5 id="toc_180">Merged 74 partitions into 19 partitions</h5>
+
+<h6 id="toc_181">&quot;selected-genes.model.best_scheme&quot;</h6>
+
+<h6 id="toc_182">Split the original alignment into the chosen partition scheme (i.e. merge partitions together and output new phylip files for each) --&gt; orthoRT-AA.pmsf.clock-selected.merged.phy</h6>
+
+<h6 id="toc_183">Fossil calibrations:</h6>
+
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Calibration</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Root</td>
+<td>B(0.75,1.18)</td>
+</tr>
+<tr>
+<td>Porosira glacialis</td>
+<td>L(0.09,0.1,1)</td>
+</tr>
+<tr>
+<td>Bacterosira constricta</td>
+<td>L(0.0835,0.1,1)</td>
+</tr>
+<tr>
+<td>Shionodiscus</td>
+<td>L(0.0615,0.1,2)</td>
+</tr>
+<tr>
+<td>Cyclostephanos</td>
+<td>L(0.05,0.1,1)</td>
+</tr>
+</tbody>
+</table>
+
+<h6 id="toc_184">Change the following lines in the <code>mcmctree_run1.ctl</code> file:</h6>
+
+<ul>
+<li>ndata = 19</li>
+<li>seqtype = 2</li>
+<li>usedata = 3</li>
+</ul>
+
+<h6 id="toc_185">Run <code>mcmctree mcmctree_run1.ctl</code> and delete <code>out.BV</code> and <code>rst</code> files.</h6>
+
+<h6 id="toc_186">Open the <code>tmp*.ctl</code> files and add/change the following lines:</h6>
+
+<ul>
+<li>model = 2</li>
+<li>aaRatefile = jones.dat</li>
+<li>fix_alpha = 0</li>
+<li>alpha = 0.5</li>
+<li>ncatG = 4</li>
+</ul>
+
+<h6 id="toc_187">Run codeml to generate the Hessian matrix using JTT for each gene.</h6>
+
+<div><pre><code class="language-none">for i in tmp*.ctl ; do codeml $i ; mv rst2 $i.rst2 ; done</code></pre></div>
+
+<h6 id="toc_188">Combine all *.rst files</h6>
+
+<div><pre><code class="language-none">for f in *.rst2 ; do (cat &quot;${f}&quot;; echo) &gt;&gt; in.BV ; done</code></pre></div>
+
+<h6 id="toc_189">Edit <code>mcmctree_run1.ctl</code> again and set:</h6>
+
+<ul>
+<li>usedata = 2</li>
+<li>RootAge = &lt;1.0</li>
+<li>BDparas = 1 1 0.1</li>
+<li>kappa_gamma = 6 2</li>
+<li>alpha_gamma = 1 1</li>
+<li>rgene_gamma = 2 10 1</li>
+<li>sigma2_gamma = 1 10 1</li>
+<li>print = 1</li>
+<li>burnin = 2500000</li>
+<li>sampfreq = 250</li>
+<li>nsample = 30000</li>
+</ul>
+
+<h5 id="toc_190">Run MCMCtree</h5>
+
+<h6 id="toc_191">Run0 - no data - <code>usedata = 0</code></h6>
+
+<h6 id="toc_192">Run1 - autocorrelated rates - <code>clock = 3</code> <code>rgene_gamma = 2 20 1</code></h6>
+
+<h6 id="toc_193">Run2 - autocorrelated rates - <code>clock = 3</code> <code>rgene_gamma = 2 20 1</code></h6>
+
+<h6 id="toc_194">Run3 - autocorrelated rates - <code>clock = 3</code> <code>rgene_gamma = 2 10 1</code></h6>
+
+<h6 id="toc_195">Run4 - autocorrelated rates - <code>clock = 3</code> <code>rgene_gamma = 2 10 1</code></h6>
+
+<h6 id="toc_196">Run5 - independent rates - <code>clock = 2</code> <code>rgene_gamma = 2 20 1</code></h6>
+
+<h6 id="toc_197">Run6 - independent rates - <code>clock = 2</code> <code>rgene_gamma = 2 20 1</code></h6>
+
+
+
+
+</body>
+
+</html>
