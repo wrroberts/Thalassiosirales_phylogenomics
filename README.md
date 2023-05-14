@@ -11,5 +11,4 @@ Scripts and workflows for the following publication:
 
 1. phylogenomic-workflow
     - phylogenomic-workflow.md
-    - phylogenomic-workflow.html
     - phylogenomic-workflow.pdf
