@@ -1,0 +1,214 @@
+library(ape)
+library(adephylo)
+library(phytools)
+library(seqinr)
+library(data.table)
+
+# here is the path to the directory of trees
+trees_dir <- file.path('orthogroup_Homologs_trees/')
+trees_bs <- dir(path=trees_dir, pattern='.treefile')
+
+# here is the path to the directory of alignments
+fasta_dir <- file.path('orthogroup_RT_CDS_degen_alignments/')
+alignments <- dir(path=fasta_dir, pattern='.pal2nal.degen.fasta')
+
+### Average Bootstrap Support ###
+
+Avg_support <- function(file) {
+  OG_no <- sub('.treefile$', '\\1', perl=TRUE, x=file)
+  # read in tree
+  tree <- read.tree(paste(trees_dir, file, sep=''))
+  # store support values in vector
+  support <- c(as.numeric(tree$node.label))
+  # calculate average support
+  avg_supp <- mean(support, na.rm=T)
+  return(c(OG_no, avg_supp))
+}
+
+# loop over all files
+average_bootstrap <- lapply(trees_bs, Avg_support)
+average_bootstrap <- data.frame(matrix(unlist(average_bootstrap), 
+                                      nrow=(length(average_bootstrap)),
+                                      byrow=T))
+colnames(average_bootstrap) <- c('OG', 'Avg_bootstrap')
+
+
+### Total and Average Branch Lengths ###
+
+Br_length.trees <- function(file) {
+  # read the phylogenetic tree
+  tree <- read.tree(paste(trees_dir, file, sep=''))
+  # get the number of tips
+  no_tips <- length(tree$tip.label)
+  # get the tree length
+  tr_length <- sum(tree$edge.length)
+  # calculate the total tree length divided by the number of terminals
+  tr_length_rates <- tr_length/no_tips
+  # calculate fraction of tree length on internal branches
+  internal <- sum(tree$edge.length[tree$edge[,2] > Ntip(tree)])
+  tr_length_internal = internal/tr_length
+  # calculate average pairwise patristic distance
+  pat_distance <- distTips(tree, tips='all', method='patristic')
+  avg_pat_distance <- mean(pat_distance, na.rm=T)
+  # calculate the avg branch length
+  avg_br_length <- mean(tree$edge.length)
+  # calculate the variance in branch lengths
+  var_br_length <- var(tree$edge.length)
+  # midpoint reroot and calculate the variance of root-to-tip distances
+  root_tip <- sd(dist.nodes(midpoint.root(reroot(tree, (length(tree$tip.label)+5))))[(length(tree$tip.label)+1),(1:length(tree$tip.label))])
+  # get tree name from filename
+  OG_no <- sub('.pos12.treefile$', '\\1', perl=TRUE, x=file)
+  return(c(OG_no, no_tips, tr_length, tr_length_rates, tr_length_internal, avg_pat_distance, avg_br_length, var_br_length, root_tip))
+}
+
+# loop over all files
+br_lengths <- lapply(trees_bs, Br_length.trees)
+br_lengths <- data.frame(matrix(unlist(br_lengths), 
+                                nrow=(length(br_lengths)), 
+                                byrow=T))
+colnames(br_lengths) <- c('OG', 'No_of_taxa', 'Tree_length', 'Tree_length_rates', 'Fraction_tree_length_on_internal','Avg_pairwise_patristic_distance', 'Avg_branch_length', 'Var_in_branch_lengths', 'Var_in_root_to_tip_distances')
+
+
+
+### Alignment Length and Missing Data ###
+
+Missing_data <- function(file) {
+  # read in the alignment in fasta format
+  alignment <- read.alignment(file=paste(fasta_dir, file, sep=''), format='fasta')
+  # get tree name from filename
+  OG_no <- sub('.aln.trim$', '\\1', perl=TRUE, x=file)
+  # alignment length
+  aln_length <- nchar(alignment$seq[1])
+  # count the number of cells in the alignment
+  aln_total_cells <- sum(sapply(alignment$seq, nchar))
+  # count the gaps, or any "-" in the alignment
+  gaps <- unname((sapply(regmatches(alignment, gregexpr("-", alignment)), length))[3])
+  # scale the missing data to 82 taxa
+  aln_cells_86taxa <- 86 * aln_length
+  gaps_to_86taxa <- ( 86 - alignment$nb ) * aln_length
+  # count the proportion of missing data
+  missing <- gaps/aln_total_cells
+  # count the proportion of missing data scaled to 86 taxa
+  missing_scaled <- ( gaps + gaps_to_86taxa ) / aln_cells_86taxa
+  return(c(OG_no, aln_length, missing, missing_scaled))
+}  
+  #remove positions that are all gaps (produced by prunning outgroups)
+#  j = 1
+  #while(j <= ncol(alignment$seq)) {
+#  while(j <= dim(alignment$seq))
+#    if(all(alignment$seq[,j] == '-')) {
+#      alignment$seq = alignment$seq[,-j]
+#    } else {
+#      j = j + 1
+#    }
+#  }
+  
+  #estimate proportion of sites in the gene that are constant
+#  constant = 0
+#  for(j in 1:ncol(alignment$seq)) {
+#    if(length(unique(alignment$seq[,j])) == 1) {
+#      constant = constant + 1
+#    } else {
+#      if(length(unique(alignment$seq[,j])) == 2 && unique(alignment$seq[,j])[1] == '-') {
+#        constant = constant + 1
+#      }
+#    }
+#  }
+  
+  #calculate proportion of constant characters
+#  length = dim(alignment$seq)[2]
+#  prop.constant[i] = constant/length
+  
+#  return(list(OG_no, aln_length, missing, missing_scaled))
+#}
+
+# apply to all files
+missing <- lapply(alignments, Missing_data)
+#missing <- rbindlist(missing)
+missing <- data.frame(matrix(unlist(missing),
+                             nrow=(length(missing)),
+                             byrow=T))
+setnames(missing, names(missing), c('OG', 'Align_length', 'Prop_missing_data', 'Prop_missing_data_scaled'))
+
+
+### Saturation ###
+
+dir.create('trim30-saturation-plots')
+sat_dir <- file.path('trim30-saturation-plots/')
+
+Saturation <- function(seq, tree) {
+  # read alignment
+  alignment <- read.alignment(file=seq, format='fasta')
+  # read tree
+  tree <- read.tree(tree)
+  # get name from filename
+  OG_no1 <- sub('.fasta$', '\\1', perl=TRUE, x=seq)
+  OG_no <- sub('^.*?/', '', perl=TRUE, x=OG_no1)
+  # matrix with pairwise identity
+  mat <- dist.alignment(alignment, matrix='identity')
+  # matrix with uncorrected p-distances
+  p_mat <- mat*mat
+  # make matrix of pairwise distances in branch lengths from the tree
+  pat_distance <- distTips(tree, tips='all', method='patristic')
+  #cophentr <- cophenetic(tree)
+  # store as matrix objects
+  mat_mat <- as.matrix(mat)
+  mat_p_mat <- as.matrix(p_mat)
+  # order p-distance matrix by names
+  mat_p_mat <- mat_p_mat[order(row.names(mat_p_mat)), order(row.names(mat_p_mat))]
+  #mat_co <- as.matrix(cophentr)
+  mat_co <- as.matrix(pat_distance)
+  # order pairwise distances matrix by names
+  mat_co <- mat_co[order(row.names(mat_co)), order(row.names(mat_co))]
+  # get lower triangulars of both matrices
+  branch_dist <- mat_co[lower.tri(mat_co)]
+  p_dist <- mat_p_mat[lower.tri(mat_p_mat)]
+  # perform linear regression
+  regress <- lm(p_dist ~ branch_dist)
+  # get slope
+  #saturation <- 1 - as.numeric(coef(regress)[2])
+  slope <- as.numeric(coef(regress)[2])
+  # get r-squared
+  Rsquared <- summary(regress)$r.squared
+  
+  # plot branch length pairwise distances on x
+  # and uncorrected p-distances on y
+  
+  # open png file
+  #png(file=paste(sat_dir, OG_no, "-saturation.png", sep=''), width=600, height=600)
+  
+  #plot(branch_dist, p_dist)
+  # add simple linear regression line
+  #abline(lm(p_dist ~ branch_dist), col='red')
+  # give title as tree name and subtitle as tree length
+  #title(main=OG_no, sub=paste("Slope:", round(slope, digits=3), " R-squared: ", round(Rsquared, digits=3), sep=""), cex.sub=1.25)
+  # close png file
+  #dev.off()
+  
+  return(list(OG_no, slope, Rsquared))
+}
+
+# create a table with file names
+files_table <- as.data.frame(cbind(paste(fasta_dir, alignments, sep=""), paste(trees_dir, trees_bs, sep="")))
+
+saturation_table <- t(mapply(Saturation, as.matrix(files_table$V1), as.matrix(files_table$V2)))
+saturation_table <- as.data.frame(saturation_table)
+colnames(saturation_table) <- c('OG', 'Slope', 'R_squared')
+row.names(saturation_table) <- NULL
+
+
+### Alignment summary ###
+alignment_summary <- read.table('trim70-alignment-summary.txt', sep='\t', header=T)
+alignment_summary <- alignment_summary[,c(1:10)]
+colnames(alignment_summary)[1] <- "OG"
+
+
+### Put all data together ###
+dfs <- list(average_bootstrap, br_lengths, alignment_summary, saturation_table)
+
+Multmerge <- function(dfs) {
+  datalist <- lapply(dfs, function(x){data.frame(x)})
+  Reduce(function(x,y) {merge(x,y)}, datalist)
+}
+
+All_loci_stats <- Multmerge(dfs)
